@@ -1,9 +1,11 @@
-<<h1 class="text-center">Mis tareas</h1>
+<h1 class="text-center">Mis tareas</h1>
 <hr>
 <section class="row">
     <!-- Menu -->
     <div class="col-md-4 col-lg-3 col-sm-6 col-12">
-        <app-menu (onMenuItemActiveChange)="catchMenuItem( $event )" />
+        <app-menu 
+        [activeIndex]="activeMenuItemIndex"
+        (onMenuItemActiveChange)="catchMenuItem( $event )" />
     </div>
     <!-- Container -->
     <div class="col">
@@ -12,7 +14,14 @@
             <h3 class="col-12 text-center">Tareas</h3>
             <hr class="col-12">
             <!-- {{ tareas | json }} -->
-            <app-tarea-card />
+            <app-tarea-card 
+            class="p-1 col-12 col-sm-6 col-lg-6" 
+            *ngFor="let tarea of tareas; let i = index"
+            [indice]="i"
+            [tarea]="tarea"
+            (onStatusChange)="catchOnStatusChange($event)"
+            />  
+            <!-- comunicacion de 2 vias, invocador a invocado[] caja, invocado a invocador con () banana, el $ toma el valor del evento no en especifico  ng es el que recibe la lista de tareas, enviara las tareas  -->
         </div>
 
         <!-- Formulario para nuevas tareas -->
@@ -20,7 +29,8 @@
             <div class="row">
                 <h3 class="col-12 text-center">Nueva Tarea</h3>
                 <hr class="col-12">
-                <app-tarea-formulario />
+                <app-tarea-formulario
+                (onAddTarea)="catchOnAddTarea($event)" />
             </div>
         </ng-template>
 
