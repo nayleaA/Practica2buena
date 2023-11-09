@@ -20,10 +20,10 @@
             {{tarea.status}}
         </p>
         <div class="text-end">
-            <button class="btn btn-small btn-danger" (click)="cambiarStatus('Retrasado')"
+            <button class="btn btn-small btn-danger" (click)="cambiarStatus(tareaStatus.Pendiente)"
                 *ngIf="tarea.status == 'Pendiente'">R</button>
 
-            <button class="btn btn-small btn-success" (click)="cambiarStatus('Completado')"
+            <button class="btn btn-small btn-success" (click)="cambiarStatus(tareaStatus.Completado)"
                 *ngIf="tarea.status != 'Completado'">C</button>
         </div>
     </div>

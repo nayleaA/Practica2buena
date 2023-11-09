@@ -3,6 +3,7 @@ import { Tarea } from './models/tarea.model';
 import { MenuItem } from './models/menu-item.model';
 import { TareaCardItem } from './models/tarea-card-item.model';
 import { ActiveMenuItem } from './models/active-menu-item.model';
+import { TareaStatus } from '../enum/tarea-status.enum';
 
 @Component({
   selector: 'app-mi-componente',
@@ -20,7 +21,7 @@ export class MiComponenteComponent implements OnInit {
   newTarea: Tarea = {
     titulo: '', 
     descripcion: '',
-    status: 'Pendiente'
+    status: TareaStatus.Pendiente
   };
   menuItems: any;
 
@@ -40,11 +41,6 @@ export class MiComponenteComponent implements OnInit {
     this.activeMenuItemIndex=item.activeIndex;
   }
 
- 
-  public cambiarStatus(index: number, status: string): void {
-    this.tareas[index].status = status;
-    this.almacenarDatos();
-  }
 
   private almacenarDatos(): void {
     localStorage.setItem("tareas", JSON.stringify(this.tareas));
@@ -53,16 +49,17 @@ export class MiComponenteComponent implements OnInit {
   catchOnStatusChange(info:TareaCardItem){//recibe el TareaCardItem
     let {indice, tarea}=info;
     this.tareas[indice]=tarea;
+    this.almacenarDatos();//actualizar el local storage para que quede reflejado el cambio
   }
 
   catchOnAddTarea(tarea: Tarea){
     this.tareas.push(tarea);
-    
-    //almacenar datos
-    this.almacenarDatos();
 
     //navegar a la lista
     this.activeMenuItemIndex=1;
+    
+    //almacenar datos
+    this.almacenarDatos();
     
   }
 

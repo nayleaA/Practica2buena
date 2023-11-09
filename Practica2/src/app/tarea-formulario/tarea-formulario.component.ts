@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { TareaStatus } from '../enum/tarea-status.enum';
 import { Tarea } from '../mi-componente/models/tarea.model';
 
 
@@ -18,7 +19,7 @@ export class TareaFormularioComponent {
     const tarea:Tarea={
       titulo,
       descripcion,
-      status:'Pendiente'  //para los que no estan defidos usamos los :, para los que si no es necesario
+      status:TareaStatus.Pendiente //para los que no estan defidos usamos los :, para los que si no es necesario
     };
     this.emitter.emit(tarea);// para emitir la tarea que se acaba de crear
   }
